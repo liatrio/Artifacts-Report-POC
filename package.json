@@ -1,0 +1,23 @@
+{
+  "name": "artifacts-report-poc",
+  "version": "1.0.0",
+  "description": "This repository is home to a Proof of Concept (POC) on how to create a \"report\" of sorts on how artifacts are being used across a GitHub Organization/Enterprise.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "keywords": [],
+  "author": {
+    "name": "4lch4",
+    "email": "devin.leaman@liatrio.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@4lch4/logger": "^1.11.0",
+    "@octokit/core": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.1.1",
+    "json-2-csv": "^4.1.0",
+    "octokit": "^3.1.0"
+  }
+}

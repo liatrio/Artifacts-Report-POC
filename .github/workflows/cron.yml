@@ -1,0 +1,40 @@
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Runs at 5am UTC every Sunday
+    - cron: '0 5 * * 0'
+  workflow_dispatch: {}
+
+jobs:
+  execute:
+    name: Execute Job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+
+      - uses: actions/github-script@v6
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          ORG_LOGIN: ${{ secrets.ORG_LOGIN }}
+        with:
+          script: |
+            const script = require('./main.js')
+            console.log(script({github, context}))
+
+      - name: Set current date as env variable
+        run: echo "TIMESTAMP=$(date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_ENV
+
+      - uses: actions/upload-artifact@v3
+        env:
+          TIMESTAMP: ${{ env.TIMESTAMP }}
+        with:
+          name: Results-Output-${{ env.TIMESTAMP }}
+          path: output/*
+          retention-days: 3
