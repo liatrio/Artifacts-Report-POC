@@ -1,0 +1,9 @@
+# Directories
+**/.DS_Store
+**/dist
+**/node_modules
+
+# Files
+**/.dccache
+**/*.env
+
