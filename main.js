@@ -142,11 +142,13 @@ async function main() {
   }
 }
 
-main()
-  .then(() => {
-    logger.success(`Execution completed successfully!`)
-  })
-  .catch(err => {
-    logger.error(`Error returned from main()`)
-    logger.error(err)
-  })
+module.exports = async () => {
+  try {
+    await main()
+
+    await log(`[module.exports]: Successfully completed.`)
+  } catch (err) {
+    console.error(`[module.exports]: Error encountered...`, err)
+    return err
+  }
+}
